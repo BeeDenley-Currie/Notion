@@ -1,29 +1,99 @@
 <!DOCTYPE html>
 <html>
-<body style="margin:0;font-family:Arial;text-align:center;background:#ee8aff;color:white;">
-<div id="countdown" style="padding:20px;">
-  <h2>🏖️ Next Holiday</h2>
-  <div id="days" style="font-size:48px;font-weight:bold;"></div>
-  <div>working days left</div>
-</div>
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
+    <title>Document</title>
+    <style>
 
-<script>
-const holiday = new Date('2026-08-31');
-
-function workingDaysUntil(start, end) {
-    let count = 0;
-    let current = new Date(start);
-
-    while (current < end) {
-        current.setDate(current.getDate() + 1);
-        const day = current.getDay();
-        if (day !== 0 && day !== 6) count++;
-    }
-    return count;
+body{
+    background-color: white;
+}
+  
+#countdown {
+  color: #eeeeee;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: .7em;
+  letter-spacing: 5px;
+}
+      
+  .holiday, .freedom, .wedding {
+  display: inline-block;
+  padding: 20px;
+  width: 100px;
+  border-radius: 5px;
 }
 
-document.getElementById('days').textContent =
-    workingDaysUntil(new Date(), holiday);
+  .holiday {
+  background: #a5d0a8;
+}
+
+.freedom {
+  background: #ffffff;
+  color: #e5d6ff;
+}
+
+.wedding {
+  background: #cfa5be;
+}
+
+  .numbers {
+  font-family: 'Montserrat', sans-serif;
+  color:  #000000;
+  font-size: 4em;
+  text-align: center;
+}
+</style> 
+</head>
+<body>
+   <div id="countdown">
+        <div class="holiday"> 
+          <div id="holiday" class="numbers "> </div>holiday</div> 
+        <div class="freedom"> 
+          <div  id="freedom" class="numbers"> </div>freedom</div> 
+        <div class="wedding"> 
+          <div  id="wedding" class="numbers"> </div>wedding</div> 
+        </div>
+
+</div>
+</body>    
+
+
+<script>
+const events = {
+  holiday: new Date('2026-08-31'),
+  freedom: new Date('2026-08-31'),
+  wedding: new Date('2026-10-01')
+};
+
+function workingDaysUntil(start, end) {
+  let count = 0;
+  let current = new Date(start);
+
+  current.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+
+  while (current < end) {
+    current.setDate(current.getDate() + 1);
+
+    const day = current.getDay();
+
+    if (day !== 0 && day !== 6) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+Object.entries(events).forEach(([id, date]) => {
+  document.getElementById(id).textContent =
+    workingDaysUntil(new Date(), date);
+});
 </script>
+
 </body>
 </html>
