@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0;font-family:Arial;text-align:center;background:#191919;color:white;">
+<div id="countdown" style="padding:20px;">
+  <h2>🏖️ Next Holiday</h2>
+  <div id="days" style="font-size:48px;font-weight:bold;"></div>
+  <div>working days left</div>
+</div>
+
+<script>
+const holiday = new Date('2026-08-31');
+
+function workingDaysUntil(start, end) {
+    let count = 0;
+    let current = new Date(start);
+
+    while (current < end) {
+        current.setDate(current.getDate() + 1);
+        const day = current.getDay();
+        if (day !== 0 && day !== 6) count++;
+    }
+    return count;
+}
+
+document.getElementById('days').textContent =
+    workingDaysUntil(new Date(), holiday);
+</script>
+</body>
+</html>
